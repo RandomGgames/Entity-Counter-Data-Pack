@@ -1,0 +1,3 @@
+scoreboard objectives add EntityCount dummy
+scoreboard objectives add EntityCounterTimeout dummy
+scoreboard objectives setdisplay sidebar EntityCount

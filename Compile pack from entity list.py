@@ -1,88 +1,34 @@
-"""
-This script creates a predicate.json file that checks
-for if any of the listed objectives in the txt file
-are not equal to 0
-The first line is the file name!!
-"""
 import os
 import json
+import shutil
 
-"""LOADING DATA FROM ENTITIES.TXT"""
-print("Loading entity list... ", end = "")
-file_lines = open("entities.txt").readlines()
-entities = []
-for line in file_lines:
-	line = line.replace("\n", "")
-	entities.append(line)
-print("Done")
+if os.path.exists("Entity_Counter"): shutil.rmtree("Entity_Counter")
 
-"""CREATE DIRECTORIES"""
-print("Creating directories... ", end = "")
-directories = (
-		"data/disable/functions",
-		"data/entity_counter/functions/",
-		"data/minecraft/tags/functions"
-	)
+directories = [
+		"Entity_Counter/data/entity_counter/functions",
+		"Entity_Counter/data/minecraft/tags/functions",
+		"Entity_Counter/data/disable/functions",
+]
 for path in directories:
-	if not os.path.exists(path):
-		os.makedirs(path)
-print("Done")
+	if not os.path.exists(path): os.makedirs(path)
 
-"""DISABLE FUNCTION"""
-print("Generating disable function... ", end = "")
-text = (
-	"scoreboard objectives remove EntityCount\n\n"
-	"datapack disable \"file/Entity Counter\"\n"
-	"datapack disable \"file/Entity Counter.zip\"\n"
-	)
-#Create functions for each type and write the text to thems
-with open(f"data/disable/functions/entity_counter.mcfunction", "w") as f:
-	f.write(text)
-print("Done")
+with open("Entity_Counter/data/disable/functions/entity_counter.mcfunction", "w") as f: f.write(f"scoreboard objectives remove EntityCount\nscoreboard objectives remove EntityCounterTimeout\n\ndatapack disable \"file/Entity_Counter\"\ndatapack disable \"file/Entity_Counter.zip\"")
+with open("Entity_Counter/pack.mcmeta", "w") as f: json.dump({"pack": {"pack_format": 10,"description": "RandomGgames' Entity Counter Data Pack"}}, f, indent = "\t")
+with open("Entity_Counter/data/minecraft/tags/functions/load.json", "w") as f: json.dump({"values": ["entity_counter:load"]}, f, indent = "\t")
+with open("Entity_Counter/data/entity_counter/functions/load.mcfunction", "w") as f: f.write(f"scoreboard objectives add EntityCount dummy\nscoreboard objectives add EntityCounterTimeout dummy\nscoreboard objectives setdisplay sidebar EntityCount")
+with open("Entity_Counter/data/minecraft/tags/functions/tick.json", "w") as f: json.dump({"values": ["entity_counter:tick"]}, f, indent = "\t")
+with open("Entity_Counter/data/entity_counter/functions/tick.mcfunction", "w") as f: f.write(f"scoreboard players add Interval EntityCounterTimeout 0\nexecute unless score Interval EntityCounterTimeout matches 1.. run scoreboard players set Interval EntityCounterTimeout 5\n\nscoreboard players add Timeout EntityCounterTimeout 1\nexecute if score Timeout EntityCounterTimeout >= Interval EntityCounterTimeout run function entity_counter:count")
+count_file = open("Entity_Counter/data/entity_counter/functions/count.mcfunction", "a")
 
-"""TICK.JSON"""
-print("Generating tick.json... ", end = "")
-tag = {}
-tag["values"] = ["entity_counter:tick"]
-#Create functions for each type and write the text to thems
-with open(f"data/minecraft/tags/functions/tick.json", "w") as f:
-	json.dump(tag, f, indent="\t")
-print("Done")
+with open("Entities.txt", "r") as f: entities = f.read()
+entities = entities.split("\n")
+if entities[-1] == "": entities = entities[:-1]
 
-"""LOAD.JSON"""
-print("Generating load.json... ", end = "")
-tag = {}
-tag["values"] = ["entity_counter:load"]
-#Create functions for each type and write the text to thems
-with open(f"data/minecraft/tags/functions/load.json", "w") as f:
-	json.dump(tag, f, indent="\t")
-print("Done")
+for i, entity_id in enumerate(entities):
+	entity_name = entity_id.replace("_", " ")
+	entity_name = entity_name.title()
+	entity_name = entity_name.replace(" ", "")
+	
+	count_file.write(f"execute if entity @e[type=minecraft:{entity_id}] store result score {entity_name} EntityCount if entity @e[type=minecraft:{entity_id}]\nexecute if score {entity_name} EntityCount matches 1.. unless entity @e[type=minecraft:{entity_id}] run scoreboard players reset {entity_name} EntityCount\n\n")
 
-"""COUNT.MCFUNCTION"""
-print("Generating count.mcfunction... ", end = "")
-text = (
-	"execute store result score Total EntityCount if entity @e\n\n"
-
-	"execute if entity @a store result score Players EntityCount if entity @a\n"
-	"execute unless entity @a if score Players EntityCount matches 1.. run scoreboard players reset Players EntityCount\n\n"
-)
-for entity in entities:
-	text = (
-		f"{text}"
-		f"execute if entity @e[type=minecraft:{entity}] store result score {entity} EntityCount if entity @e[type=minecraft:{entity}]\n"
-		f"execute unless entity @e[type=minecraft:{entity}] if score {entity} EntityCount matches 1.. run scoreboard players reset {entity} EntityCount\n\n"
-	)
-text = f"{text[:-1]}"
-with open(f"data/entity_counter/functions/count.mcfunction", "w") as f:
-	f.write(text)
-print("Done")
-
-"""LOAD.MCFUNCTION"""
-print("Generating load.mcfunction... ", end = "")
-text = (
-	"scoreboard objectives add EntityCount dummy\n"
-)
-#Create functions for each type and write the text to them
-with open(f"data/entity_counter/functions/load.mcfunction", "w") as f:
-	f.write(text)
-print("Done")
+count_file.write(f"scoreboard players set Timeout EntityCounterTimeout 0\n\nexecute if entity @e store result score Total EntityCount if entity @e\nexecute if score Total EntityCount matches 1.. unless entity @e run scoreboard players reset Total EntityCount\n\n")
