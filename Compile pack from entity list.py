@@ -5,20 +5,20 @@ import shutil
 if os.path.exists("Entity_Counter"): shutil.rmtree("Entity_Counter")
 
 directories = [
-		"Entity_Counter/data/entity_counter/functions",
-		"Entity_Counter/data/minecraft/tags/functions",
-		"Entity_Counter/data/disable/functions",
+		"data/functions",
+		"data/minecraft/tags/functions",
+		"data/disable/functions",
 ]
 for path in directories:
 	if not os.path.exists(path): os.makedirs(path)
 
-with open("Entity_Counter/data/disable/functions/entity_counter.mcfunction", "w") as f: f.write(f"scoreboard objectives remove EntityCount\nscoreboard objectives remove EntityCounterTimeout\n\ndatapack disable \"file/Entity_Counter\"\ndatapack disable \"file/Entity_Counter.zip\"")
-with open("Entity_Counter/pack.mcmeta", "w") as f: json.dump({"pack": {"pack_format": 10,"description": "RandomGgames' Entity Counter Data Pack"}}, f, indent = "\t")
-with open("Entity_Counter/data/minecraft/tags/functions/load.json", "w") as f: json.dump({"values": ["entity_counter:load"]}, f, indent = "\t")
-with open("Entity_Counter/data/entity_counter/functions/load.mcfunction", "w") as f: f.write(f"scoreboard objectives add EntityCount dummy\nscoreboard objectives add EntityCounterTimeout dummy\nscoreboard objectives setdisplay sidebar EntityCount")
-with open("Entity_Counter/data/minecraft/tags/functions/tick.json", "w") as f: json.dump({"values": ["entity_counter:tick"]}, f, indent = "\t")
-with open("Entity_Counter/data/entity_counter/functions/tick.mcfunction", "w") as f: f.write(f"scoreboard players add Interval EntityCounterTimeout 0\nexecute unless score Interval EntityCounterTimeout matches 1.. run scoreboard players set Interval EntityCounterTimeout 5\n\nscoreboard players add Timeout EntityCounterTimeout 1\nexecute if score Timeout EntityCounterTimeout >= Interval EntityCounterTimeout run function entity_counter:count")
-count_file = open("Entity_Counter/data/entity_counter/functions/count.mcfunction", "a")
+with open("data/disable/functions/entity_counter.mcfunction", "w") as f: f.write(f"scoreboard objectives remove EntityCount\nscoreboard objectives remove EntityCounterTimeout\n\ndatapack disable \"file/Entity_Counter\"\ndatapack disable \"file/Entity_Counter.zip\"")
+with open("pack.mcmeta", "w") as f: json.dump({"pack": {"pack_format": 10,"description": "RandomGgames' Entity Counter Data Pack"}}, f, indent = "\t")
+with open("data/minecraft/tags/functions/load.json", "w") as f: json.dump({"values": ["entity_counter:load"]}, f, indent = "\t")
+with open("data/functions/load.mcfunction", "w") as f: f.write(f"scoreboard objectives add EntityCount dummy\nscoreboard objectives add EntityCounterTimeout dummy\nscoreboard objectives setdisplay sidebar EntityCount")
+with open("data/minecraft/tags/functions/tick.json", "w") as f: json.dump({"values": ["entity_counter:tick"]}, f, indent = "\t")
+with open("data/functions/tick.mcfunction", "w") as f: f.write(f"scoreboard players add Interval EntityCounterTimeout 0\nexecute unless score Interval EntityCounterTimeout matches 1.. run scoreboard players set Interval EntityCounterTimeout 5\n\nscoreboard players add Timeout EntityCounterTimeout 1\nexecute if score Timeout EntityCounterTimeout >= Interval EntityCounterTimeout run function entity_counter:count")
+count_file = open("data/functions/count.mcfunction", "a")
 
 with open("Entities.txt", "r") as f: entities = f.read()
 entities = entities.split("\n")
