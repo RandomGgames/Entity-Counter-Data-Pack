@@ -2,16 +2,20 @@ import os
 import json
 import shutil
 
+<<<<<<< Updated upstream
 if os.path.exists("Entity_Counter"): shutil.rmtree("Entity_Counter")
 
+=======
+>>>>>>> Stashed changes
 directories = [
-		"data/functions",
+		"data/entity_counter/functions",
 		"data/minecraft/tags/functions",
 		"data/disable/functions",
 ]
 for path in directories:
 	if not os.path.exists(path): os.makedirs(path)
 
+<<<<<<< Updated upstream
 with open("data/disable/functions/entity_counter.mcfunction", "w") as f: f.write(f"scoreboard objectives remove EntityCount\nscoreboard objectives remove EntityCounterTimeout\n\ndatapack disable \"file/Entity_Counter\"\ndatapack disable \"file/Entity_Counter.zip\"")
 with open("pack.mcmeta", "w") as f: json.dump({"pack": {"pack_format": 10,"description": "RandomGgames' Entity Counter Data Pack"}}, f, indent = "\t")
 with open("data/minecraft/tags/functions/load.json", "w") as f: json.dump({"values": ["entity_counter:load"]}, f, indent = "\t")
@@ -19,16 +23,29 @@ with open("data/functions/load.mcfunction", "w") as f: f.write(f"scoreboard obje
 with open("data/minecraft/tags/functions/tick.json", "w") as f: json.dump({"values": ["entity_counter:tick"]}, f, indent = "\t")
 with open("data/functions/tick.mcfunction", "w") as f: f.write(f"scoreboard players add Interval EntityCounterTimeout 0\nexecute unless score Interval EntityCounterTimeout matches 1.. run scoreboard players set Interval EntityCounterTimeout 5\n\nscoreboard players add Timeout EntityCounterTimeout 1\nexecute if score Timeout EntityCounterTimeout >= Interval EntityCounterTimeout run function entity_counter:count")
 count_file = open("data/functions/count.mcfunction", "a")
+=======
+with open("data/disable/functions/entity_counter.mcfunction", "w") as f: f.write(f"scoreboard objectives remove EntityCounter.Count\nscoreboard objectives remove EntityCounter.Timeout\n\ndatapack disable \"file/EntityCounter\"\ndatapack disable \"file/EntityCounter.zip\"")
+with open("pack.mcmeta", "w") as f: json.dump({"pack": {"pack_format": 10,"description": "RandomGgames' Entity Counter Data Pack"}}, f, indent = "\t")
+with open("data/minecraft/tags/functions/load.json", "w") as f: json.dump({"values": ["entity_counter:load"]}, f, indent = "\t")
+with open("data/entity_counter/functions/load.mcfunction", "w") as f: f.write(f"scoreboard objectives add EntityCounter.Count dummy [{{\"text\":\"Entity Count\"}}]\nscoreboard objectives add EntityCounter.Timeout dummy\nscoreboard objectives setdisplay sidebar EntityCounter.Count")
+with open("data/minecraft/tags/functions/tick.json", "w") as f: json.dump({"values": ["entity_counter:tick"]}, f, indent = "\t")
+with open("data/entity_counter/functions/tick.mcfunction", "w") as f: f.write(f"scoreboard players add Interval EntityCounter.Timeout 0\nexecute unless score Interval EntityCounter.Timeout matches 1.. run scoreboard players set Interval EntityCounter.Timeout 5\n\nscoreboard players add Timeout EntityCounter.Timeout 1\nexecute if score Timeout EntityCounter.Timeout >= Interval EntityCounter.Timeout run function EntityCounter:count")
+count_file = open("data/entity_counter/functions/count.mcfunction", "w")
+>>>>>>> Stashed changes
 
 with open("Entities.txt", "r") as f: entities = f.read()
 entities = entities.split("\n")
 if entities[-1] == "": entities = entities[:-1]
 
+count_text = ""
 for i, entity_id in enumerate(entities):
 	entity_name = entity_id.replace("_", " ")
 	entity_name = entity_name.title()
 	entity_name = entity_name.replace(" ", "")
 	
-	count_file.write(f"execute if entity @e[type=minecraft:{entity_id}] store result score {entity_name} EntityCount if entity @e[type=minecraft:{entity_id}]\nexecute if score {entity_name} EntityCount matches 1.. unless entity @e[type=minecraft:{entity_id}] run scoreboard players reset {entity_name} EntityCount\n\n")
+	count_text = count_text + f"execute if entity @e[type=minecraft:{entity_id}] store result score {entity_name} EntityCounter.Count if entity @e[type=minecraft:{entity_id}]\nexecute if score {entity_name} EntityCounter.Count matches 1.. unless entity @e[type=minecraft:{entity_id}] run scoreboard players reset {entity_name} EntityCounter.Count\n\n"
+	#count_file.write(f"execute if entity @e[type=minecraft:{entity_id}] store result score {entity_name} EntityCounter.Count if entity @e[type=minecraft:{entity_id}]\nexecute if score {entity_name} EntityCounter.Count matches 1.. unless entity @e[type=minecraft:{entity_id}] run scoreboard players reset {entity_name} EntityCounter.Count\n\n")
+count_text = count_text + f"scoreboard players set Timeout EntityCounter.Timeout 0\n\nexecute if entity @e store result score Total EntityCounter.Count if entity @e\nexecute if score Total EntityCounter.Count matches 1.. unless entity @e run scoreboard players reset Total EntityCounter.Count\n\n"
+#count_file.write(f"scoreboard players set Timeout EntityCounter.Timeout 0\n\nexecute if entity @e store result score Total EntityCounter.Count if entity @e\nexecute if score Total EntityCounter.Count matches 1.. unless entity @e run scoreboard players reset Total EntityCounter.Count\n\n")
 
-count_file.write(f"scoreboard players set Timeout EntityCounterTimeout 0\n\nexecute if entity @e store result score Total EntityCount if entity @e\nexecute if score Total EntityCount matches 1.. unless entity @e run scoreboard players reset Total EntityCount\n\n")
+count_file.write(count_text)
