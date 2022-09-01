@@ -350,4 +350,3 @@ scoreboard players set Timeout EntityCounter.Timeout 0
 
 execute if entity @e store result score Total EntityCounter.Count if entity @e
 execute if score Total EntityCounter.Count matches 1.. unless entity @e run scoreboard players reset Total EntityCounter.Count
-
