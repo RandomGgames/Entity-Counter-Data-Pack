@@ -1,6 +1,5 @@
 import os
 import json
-import shutil
 
 directories = [
 		"data/entity_counter/functions",
@@ -28,4 +27,5 @@ for i, entity_id in enumerate(entities):
 	entity_name = entity_name.replace(" ", "")
 	count_text = count_text + f"execute if entity @e[type=minecraft:{entity_id}] store result score {entity_name} EntityCounter.Count if entity @e[type=minecraft:{entity_id}]\nexecute if score {entity_name} EntityCounter.Count matches 1.. unless entity @e[type=minecraft:{entity_id}] run scoreboard players reset {entity_name} EntityCounter.Count\n\n"
 count_text = count_text + f"scoreboard players set Timeout EntityCounter.Timeout 0\n\nexecute if entity @e store result score Total EntityCounter.Count if entity @e\nexecute if score Total EntityCounter.Count matches 1.. unless entity @e run scoreboard players reset Total EntityCounter.Count\n\n"
+count_text = count_text[:-2]
 count_file.write(count_text)
