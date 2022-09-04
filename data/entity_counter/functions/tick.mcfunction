@@ -1,4 +1,3 @@
-scoreboard players add Interval EntityCounter.Timeout 0
 execute unless score Interval EntityCounter.Timeout matches 1.. run scoreboard players set Interval EntityCounter.Timeout 5
 
 scoreboard players add Timeout EntityCounter.Timeout 1
