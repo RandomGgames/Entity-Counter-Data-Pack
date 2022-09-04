@@ -10,7 +10,7 @@ for path in directories:
 	if not os.path.exists(path): os.makedirs(path)
 
 with open("data/disable/functions/entity_counter.mcfunction", "w") as f: f.write(f"scoreboard objectives remove EntityCounter.Count\nscoreboard objectives remove EntityCounter.Timeout\n\ndatapack disable \"file/EntityCounter\"\ndatapack disable \"file/EntityCounter.zip\"")
-with open("pack.mcmeta", "w") as f: json.dump({"pack": {"pack_format": 10,"description": "RandomGgames' Entity Counter Data Pack"}}, f, indent = "\t")
+with open("pack.mcmeta", "w") as f: json.dump({"pack": {"pack_format": 9,"description": "RandomGgames' Entity Counter Data Pack"}}, f, indent = "\t")
 with open("data/minecraft/tags/functions/load.json", "w") as f: json.dump({"values": ["entity_counter:load"]}, f, indent = "\t")
 with open("data/entity_counter/functions/load.mcfunction", "w") as f: f.write(f"scoreboard objectives add EntityCounter.Count dummy [{{\"text\":\"Entity Count\"}}]\nscoreboard objectives add EntityCounter.Timeout dummy\nscoreboard objectives setdisplay sidebar EntityCounter.Count")
 with open("data/minecraft/tags/functions/tick.json", "w") as f: json.dump({"values": ["entity_counter:tick"]}, f, indent = "\t")
