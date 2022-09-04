@@ -127,6 +127,9 @@ execute if score Ghast EntityCounter.Count matches 1.. unless entity @e[type=min
 execute if entity @e[type=minecraft:giant] store result score Giant EntityCounter.Count if entity @e[type=minecraft:giant]
 execute if score Giant EntityCounter.Count matches 1.. unless entity @e[type=minecraft:giant] run scoreboard players reset Giant EntityCounter.Count
 
+execute if entity @e[type=minecraft:glow_item_frame] store result score GlowItemFrame EntityCounter.Count if entity @e[type=minecraft:glow_item_frame]
+execute if score GlowItemFrame EntityCounter.Count matches 1.. unless entity @e[type=minecraft:glow_item_frame] run scoreboard players reset GlowItemFrame EntityCounter.Count
+
 execute if entity @e[type=minecraft:glow_squid] store result score GlowSquid EntityCounter.Count if entity @e[type=minecraft:glow_squid]
 execute if score GlowSquid EntityCounter.Count matches 1.. unless entity @e[type=minecraft:glow_squid] run scoreboard players reset GlowSquid EntityCounter.Count
 
@@ -174,6 +177,9 @@ execute if score LlamaSpit EntityCounter.Count matches 1.. unless entity @e[type
 
 execute if entity @e[type=minecraft:magma_cube] store result score MagmaCube EntityCounter.Count if entity @e[type=minecraft:magma_cube]
 execute if score MagmaCube EntityCounter.Count matches 1.. unless entity @e[type=minecraft:magma_cube] run scoreboard players reset MagmaCube EntityCounter.Count
+
+execute if entity @e[type=minecraft:marker] store result score Marker EntityCounter.Count if entity @e[type=minecraft:marker]
+execute if score Marker EntityCounter.Count matches 1.. unless entity @e[type=minecraft:marker] run scoreboard players reset Marker EntityCounter.Count
 
 execute if entity @e[type=minecraft:minecart] store result score Minecart EntityCounter.Count if entity @e[type=minecraft:minecart]
 execute if score Minecart EntityCounter.Count matches 1.. unless entity @e[type=minecraft:minecart] run scoreboard players reset Minecart EntityCounter.Count
