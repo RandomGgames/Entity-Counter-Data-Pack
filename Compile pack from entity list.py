@@ -14,7 +14,7 @@ with open("pack.mcmeta", "w") as f: json.dump({"pack": {"pack_format": 10,"descr
 with open("data/minecraft/tags/functions/load.json", "w") as f: json.dump({"values": ["entity_counter:load"]}, f, indent = "\t")
 with open("data/entity_counter/functions/load.mcfunction", "w") as f: f.write(f"scoreboard objectives add EntityCounter.Count dummy [{{\"text\":\"Entity Count\"}}]\nscoreboard objectives add EntityCounter.Timeout dummy\nscoreboard objectives setdisplay sidebar EntityCounter.Count")
 with open("data/minecraft/tags/functions/tick.json", "w") as f: json.dump({"values": ["entity_counter:tick"]}, f, indent = "\t")
-with open("data/entity_counter/functions/tick.mcfunction", "w") as f: f.write(f"scoreboard players add Interval EntityCounter.Timeout 0\nexecute unless score Interval EntityCounter.Timeout matches 1.. run scoreboard players set Interval EntityCounter.Timeout 5\n\nscoreboard players add Timeout EntityCounter.Timeout 1\nexecute if score Timeout EntityCounter.Timeout >= Interval EntityCounter.Timeout run function EntityCounter:count")
+with open("data/entity_counter/functions/tick.mcfunction", "w") as f: f.write(f"execute unless score Interval EntityCounter.Timeout matches 1.. run scoreboard players set Interval EntityCounter.Timeout 5\n\nscoreboard players add Timeout EntityCounter.Timeout 1\nexecute if score Timeout EntityCounter.Timeout >= Interval EntityCounter.Timeout run function EntityCounter:count")
 
 count_file = open("data/entity_counter/functions/count.mcfunction", "w")
 with open("Entities.txt", "r") as f: entities = f.read()
