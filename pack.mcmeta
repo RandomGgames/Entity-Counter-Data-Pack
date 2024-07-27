@@ -1,6 +1,6 @@
 {
 	"pack": {
-		"pack_format": 15,
-		"description": "RandomGgames' Entity Counter Data Pack"
+		"pack_format": 48,
+		"description": "Counts all entities and lists them in a scoreboard objective on the sidebar. Created by RandomGgames."
 	}
 }
