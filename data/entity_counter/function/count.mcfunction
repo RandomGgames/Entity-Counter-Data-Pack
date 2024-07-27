@@ -91,9 +91,6 @@ execute if score Enderman EntityCounter.Count matches 1.. unless entity @e[type=
 execute if entity @e[type=minecraft:endermite] store result score Endermite EntityCounter.Count if entity @e[type=minecraft:endermite]
 execute if score Endermite EntityCounter.Count matches 1.. unless entity @e[type=minecraft:endermite] run scoreboard players reset Endermite EntityCounter.Count
 
-execute if entity @e[type=minecraft:entity_display] store result score EntityDisplay EntityCounter.Count if entity @e[type=minecraft:entity_display]
-execute if score EntityDisplay EntityCounter.Count matches 1.. unless entity @e[type=minecraft:entity_display] run scoreboard players reset EntityDisplay EntityCounter.Count
-
 execute if entity @e[type=minecraft:evoker] store result score Evoker EntityCounter.Count if entity @e[type=minecraft:evoker]
 execute if score Evoker EntityCounter.Count matches 1.. unless entity @e[type=minecraft:evoker] run scoreboard players reset Evoker EntityCounter.Count
 
@@ -208,6 +205,9 @@ execute if score Mule EntityCounter.Count matches 1.. unless entity @e[type=mine
 execute if entity @e[type=minecraft:ocelot] store result score Ocelot EntityCounter.Count if entity @e[type=minecraft:ocelot]
 execute if score Ocelot EntityCounter.Count matches 1.. unless entity @e[type=minecraft:ocelot] run scoreboard players reset Ocelot EntityCounter.Count
 
+execute if entity @e[type=minecraft:ominous_item_spawner] store result score OminousItemSpawner EntityCounter.Count if entity @e[type=minecraft:ominous_item_spawner]
+execute if score OminousItemSpawner EntityCounter.Count matches 1.. unless entity @e[type=minecraft:ominous_item_spawner] run scoreboard players reset OminousItemSpawner EntityCounter.Count
+
 execute if entity @e[type=minecraft:painting] store result score Painting EntityCounter.Count if entity @e[type=minecraft:painting]
 execute if score Painting EntityCounter.Count matches 1.. unless entity @e[type=minecraft:painting] run scoreboard players reset Painting EntityCounter.Count
 
@@ -307,6 +307,9 @@ execute if score Strider EntityCounter.Count matches 1.. unless entity @e[type=m
 execute if entity @e[type=minecraft:tadpole] store result score Tadpole EntityCounter.Count if entity @e[type=minecraft:tadpole]
 execute if score Tadpole EntityCounter.Count matches 1.. unless entity @e[type=minecraft:tadpole] run scoreboard players reset Tadpole EntityCounter.Count
 
+execute if entity @e[type=minecraft:text_display] store result score TextDisplay EntityCounter.Count if entity @e[type=minecraft:text_display]
+execute if score TextDisplay EntityCounter.Count matches 1.. unless entity @e[type=minecraft:text_display] run scoreboard players reset TextDisplay EntityCounter.Count
+
 execute if entity @e[type=minecraft:tnt] store result score Tnt EntityCounter.Count if entity @e[type=minecraft:tnt]
 execute if score Tnt EntityCounter.Count matches 1.. unless entity @e[type=minecraft:tnt] run scoreboard players reset Tnt EntityCounter.Count
 
@@ -339,6 +342,9 @@ execute if score WanderingTrader EntityCounter.Count matches 1.. unless entity @
 
 execute if entity @e[type=minecraft:warden] store result score Warden EntityCounter.Count if entity @e[type=minecraft:warden]
 execute if score Warden EntityCounter.Count matches 1.. unless entity @e[type=minecraft:warden] run scoreboard players reset Warden EntityCounter.Count
+
+execute if entity @e[type=minecraft:wind_charge] store result score WindCharge EntityCounter.Count if entity @e[type=minecraft:wind_charge]
+execute if score WindCharge EntityCounter.Count matches 1.. unless entity @e[type=minecraft:wind_charge] run scoreboard players reset WindCharge EntityCounter.Count
 
 execute if entity @e[type=minecraft:witch] store result score Witch EntityCounter.Count if entity @e[type=minecraft:witch]
 execute if score Witch EntityCounter.Count matches 1.. unless entity @e[type=minecraft:witch] run scoreboard players reset Witch EntityCounter.Count
