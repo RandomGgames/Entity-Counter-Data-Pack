@@ -29,7 +29,6 @@ ender_dragon
 ender_pearl
 enderman
 endermite
-entity_display
 evoker
 evoker_fangs
 experience_bottle
@@ -68,6 +67,7 @@ minecart
 mooshroom
 mule
 ocelot
+ominous_item_spawner
 painting
 panda
 parrot
@@ -101,6 +101,7 @@ squid
 stray
 strider
 tadpole
+text_display
 tnt
 tnt_minecart
 trader_llama
@@ -112,6 +113,7 @@ villager
 vindicator
 wandering_trader
 warden
+wind_charge
 witch
 wither
 wither_skeleton
